@@ -179,7 +179,6 @@
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/gps/cyborg(src)
-	modules += new /obj/item/weapon/inflatable_dispenser/robot(src)
 
 	emag = new /obj/item/borg/stun(src)
 
