@@ -179,13 +179,22 @@
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/gps/cyborg(src)
-
+	modules += new /obj/item/weapon/inflatable_dispenser(src)
+	
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/T in stacktypes)
 		var/obj/item/stack/W = new T(src)
 		W.set_amount(stacktypes[T])
 		modules += W
+
+/obj/item/weapon/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
+	var/obj/item/weapon/inflatable_dispenser/IDS = locate() in src.modules
+	if(IDS)
+		if(IDS.stored_walls < 12)
+			IDS.stored_walls += 1
+		if(IDS.stored_doors < 4)
+			IDS.stored_doors += 1
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
