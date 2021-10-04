@@ -86,6 +86,7 @@
 	modules += new /obj/item/weapon/crowbar(src)
 	modules += new /obj/item/device/healthanalyzer(src)
 	modules += new /obj/item/device/gps/cyborg(src)
+	modules += new /obj/item/weapon/inflatable_dispenser(src)
 	emag = new /obj/item/weapon/melee/energy/sword(src)
 
 /obj/item/weapon/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
@@ -93,6 +94,11 @@
 	var/obj/item/weapon/melee/baton/B = locate() in src.modules
 	if(B.charges < 10)
 		B.charges += 1
+	var/obj/item/weapon/inflatable_dispenser/IDS = locate() in src.modules
+	if(IDS.stored_walls < 12)
+		IDS.stored_walls += 1
+	if(IDS.stored_doors < 4)
+		IDS.stored_doors += 1	
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
@@ -183,18 +189,18 @@
 	
 	emag = new /obj/item/borg/stun(src)
 
+/obj/item/weapon/robot_module/engineering/respawn_consumable(mob/living/silicon/robot/R)
+	..()
+	var/obj/item/weapon/inflatable_dispenser/IDS = locate() in src.modules
+	if(IDS.stored_walls < 12)
+		IDS.stored_walls += 1
+	if(IDS.stored_doors < 4)
+		IDS.stored_doors += 1	
+
 	for(var/T in stacktypes)
 		var/obj/item/stack/W = new T(src)
 		W.set_amount(stacktypes[T])
 		modules += W
-
-/obj/item/weapon/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/weapon/inflatable_dispenser/IDS = locate() in src.modules
-	if(IDS)
-		if(IDS.stored_walls < 12)
-			IDS.stored_walls += 1
-		if(IDS.stored_doors < 4)
-			IDS.stored_doors += 1
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"

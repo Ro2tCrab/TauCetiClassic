@@ -1,18 +1,19 @@
 /obj/item/weapon/inflatable_dispenser
-    name = "inflatable dispenser"
-    icon = 'icons/obj/storage.dmi'
-    icon_state = "inf_deployer"
-    w_class = SIZE_SMALL
+	name = "inflatable dispenser"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "inf_deployer"
+	desc = "Hand-held device which allows rapid deployment and removal of inflatables."
+	w_class = SIZE_SMALL
+	var/stored_walls = 12
+	var/stored_doors = 4
+	var/max_walls = 12
+	var/max_doors = 4
+	var/mode = 0
 
-    var/stored_walls = 12
-    var/stored_doors = 4
-    var/max_walls = 12
-    var/max_doors = 4
-    var/mode = 0
-
-/obj/item/weapon/inflatable_dispenser/atom_init()
-	. = ..()
-	desc = "A inflatable dispenser. It currently holds [stored_walls]/[max_walls] walls and [stored_doors]/[max_doors] doors."
+/obj/item/weapon/inflatable_dispenser/examine(mob/user)
+	..()
+	to_chat(user, "It currently holds [stored_walls]/[max_walls] walls and [stored_doors]/[max_doors] doors.")
+	to_chat(user, "MODE : [mode ? "doors" : "walls"]")
 
 /obj/item/weapon/inflatable_dispenser/attack_self()
     . = ..()
