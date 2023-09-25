@@ -1,0 +1,33 @@
+/mob/simple_animal/bots
+    name = "dev/bluespace"
+    desc = "Tear of fabric reality. You should report it to CentrCom."
+	icon = 'icons/obj/aibots.dmi'
+	layer = MOB_LAYER
+    var/animalistic = FALSE // Determines whether the being here is an animal or nah.
+    var/min_oxy = 0 //No
+	var/max_oxy = 0 //No
+	var/min_tox = 0 //No
+	var/max_tox = 0 //No
+	var/min_co2 = 0 //No
+	var/max_co2 = 0 //No
+	var/min_n2 = 0 //No
+	var/max_n2 = 0 //No
+	var/unsuitable_atoms_damage = 0 //No
+    var/minbodytemp = -999999999 //Can i replace it with something else?
+	var/maxbodytemp = 999999999
+	var/heat_damage_per_tick = 0
+	var/cold_damage_per_tick = 0
+    
+
+
+    //Bot vars
+	var/obj/item/weapon/card/id/botcard			// the ID card that the bot "holds"
+	var/on = 1
+	var/fire_dam_coeff = 1.0
+	var/brute_dam_coeff = 1.0
+	var/open = 0                                //Maint panel
+	var/locked = 1
+	//var/emagged = 0 //Urist: Moving that var to the general /bot tree as it's used by most bots
+	var/x_last
+	var/y_last
+	var/same_pos_count
