@@ -13,3 +13,5 @@
 #define QUALITY_PULSING	   "pulsing"	// for multitools
 
 #define QUALITY_SIGNALLING "signaling"	// for signaller
+
+#define QUALITY_LIGHTER "lights" // for lighers
