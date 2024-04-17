@@ -170,7 +170,7 @@
 		to_chat(user, "<span class='warning'>Тело [AOG.buckled_mob] слишком слабо!</span>")
 		return FALSE
 
-	if(AOG.buckled_mob.mind.holy_role >= HOLY_ROLE_PRIEST)
+	if(CLUMSY in AOG.buckled_mob.mutations)
 		to_chat(user, "<span class='warning'>[AOG.buckled_mob]уже святой!</span>")
 		return FALSE
 
