@@ -253,6 +253,7 @@
 			force = 15
 			damtype = BURN
 			icon_state = initial(icon_state) + "1"
+			qualities += QUALITY_LIGHTER
 		if(prob(5)) // passive fuel burning
 			use(1)
 		light_color = LIGHT_COLOR_FIRE
@@ -264,6 +265,7 @@
 			damtype = BRUTE
 			icon_state = initial(icon_state)
 			active = FALSE
+			qualities -= QUALITY_LIGHTER
 		set_light(0)
 		if(!istype(src, /obj/item/weapon/weldingtool/experimental))
 			STOP_PROCESSING(SSobj, src)
