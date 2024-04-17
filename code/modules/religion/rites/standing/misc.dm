@@ -194,6 +194,7 @@
 
 		user.visible_message("<span class='notice'>[user] has finished the rite of [name]!</span>")
 	return TRUE
+	favor_cost = initial(favor_cost)
 
 /*
  * Spook
