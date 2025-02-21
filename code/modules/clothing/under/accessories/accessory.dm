@@ -52,6 +52,7 @@
 
 /obj/item/clothing/accessory/tie
 	layer_priority = 0.1
+	slot_flags = SLOT_FLAGS_NECK | SLOT_FLAGS_TIE
 
 /obj/item/clothing/accessory/tie/blue
 	name = "blue tie"
@@ -74,6 +75,7 @@
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
+	slot_flags = SLOT_FLAGS_TIE
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
@@ -159,11 +161,13 @@
 	name = "bronze cross"
 	desc = "That's a little bronze cross for wearing under the clothes."
 	icon_state = "bronze_cross"
+	slot_flags = SLOT_FLAGS_NECK | SLOT_FLAGS_TIE
 
 /obj/item/clothing/accessory/metal_cross
 	name = "metal cross"
 	desc = "That's a little metal cross for wearing under the clothes."
 	icon_state = "metal_cross"
+	slot_flags = SLOT_FLAGS_NECK | SLOT_FLAGS_TIE
 
 //Medals
 /datum/medal
@@ -339,7 +343,7 @@
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
-	slot_flags = SLOT_FLAGS_MASK | SLOT_FLAGS_TIE
+	slot_flags = SLOT_FLAGS_NECK | SLOT_FLAGS_TIE
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	if(!stored_name)
@@ -415,3 +419,33 @@
 /obj/item/clothing/accessory/holobadge/emp_act(severity)
 	if(camera)
 		camera.emp_act(1)
+
+
+/obj/item/clothing/accessory/newbiebadge
+	name = "newbie badge"
+	desc = "Бейджик с надписью: \"Я здесь новенький!\"."
+	icon_state = "newbieBadge"
+	item_state_world = "newbieBadge_world"
+	slot_flags = SLOT_FLAGS_NECK | SLOT_FLAGS_TIE
+
+	item_action_types = list(/datum/action/item_action/hands_free/showBadge)
+
+/obj/item/clothing/accessory/newbiebadge/attack(mob/living/carbon/human/M, mob/living/user)
+	if(isliving(user))
+		user.visible_message(
+			"<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into their face insistently.</span>",
+			"<span class='warning'>You invade [M]'s personal space, thrusting [src] into their face insistently.</span>")
+
+/obj/item/clothing/accessory/newbiebadge/attack_self(mob/user)
+	if(isliving(user))
+		user.visible_message(
+			"<span class='warning'>[user] показывает свой бейдж NanoTrasen Employee Adaptation Program.\nС надписью: \"Я здесь новенький!\".</span>",
+			"<span class='warning'>Вы показываете свой бейдж NanoTrasen Employee Adaptation Program.\nС надписью: \"Я здесь новенький!\".</span>")
+
+/datum/action/item_action/hands_free/showBadge
+	name = "Show Badge"
+
+/datum/action/item_action/hands_free/showBadge/Activate()
+	usr.visible_message(
+		"<span class='warning'>[usr] показывает свой бейдж NanoTrasen Employee Adaptation Program.\nС надписью: \"Я здесь новенький!\".</span>",
+		"<span class='warning'>Вы показываете свой бейдж NanoTrasen Employee Adaptation Program.\nС надписью: \"Я здесь новенький!\".</span>")

@@ -44,6 +44,10 @@
 	///Last world.time tick the contents of this paper was changed.
 	var/last_info_change = 0
 
+	var/windowWidth = 425
+	var/windowHeight = 600
+	var/windowTheme = CSS_THEME_LIGHT
+
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
 /obj/item/weapon/paper/atom_init()
@@ -58,9 +62,9 @@
 
 /obj/item/weapon/paper/update_icon()
 	if(info)
-		icon_state = "paper_words"
+		icon_state = "[initial(icon_state)]_words"
 		return
-	icon_state = "paper"
+	icon_state = "[initial(icon_state)]"
 
 /obj/item/weapon/paper/proc/update_space(new_text)
 	if(!new_text)
@@ -91,7 +95,7 @@
 		data = "[infolinks ? info_links : info][stamp_text]"
 
 	if(view)
-		var/datum/browser/popup = new(user, "window=[name]", "[name]", 425, 600, ntheme = CSS_THEME_LIGHT)
+		var/datum/browser/popup = new(user, "window=[name]", "[name]", windowWidth, windowHeight, ntheme = windowTheme)
 		popup.set_content(data)
 		popup.open()
 
@@ -241,10 +245,10 @@
 	info_links = info
 	var/i = 0
 	for(i = 1, i <= fields, i++)
-		addtofield(i, " <font face=\"[deffont]\"><A href='?src=\ref[src];write=[i]'>write</A></font>", 1)
+		addtofield(i, " <font face=\"[deffont]\"><A href='byond://?src=\ref[src];write=[i]'>write</A></font>", 1)
 	for(i = 1, i <= sfields, i++)
-		addtofield(i, " <font face=\"[deffont]\"><A href='?src=\ref[src];write=[i];sign=1'>sign</A></font>", 1, "sign")
-	info_links = info_links + " <font face=\"[deffont]\"><A href='?src=\ref[src];write=end'>write</A></font>"
+		addtofield(i, " <font face=\"[deffont]\"><A href='byond://?src=\ref[src];write=[i];sign=1'>sign</A></font>", 1, "sign")
+	info_links = info_links + " <font face=\"[deffont]\"><A href='byond://?src=\ref[src];write=end'>write</A></font>"
 
 
 /obj/item/weapon/paper/proc/clearpaper()
@@ -379,7 +383,7 @@
 
 		for(var/premade_form in predefined_forms_list[department]["content"])
 			var/datum/form/form = new premade_form
-			dat += "<tr><th style='background-color:[color];'><A href='?src=\ref[src];write=end;form=[form.index]'>Форма [form.index]</A></th>"
+			dat += "<tr><th style='background-color:[color];'><A href='byond://?src=\ref[src];write=end;form=[form.index]'>Форма [form.index]</A></th>"
 			dat += "<th> [form.name]</th></tr>"
 		dat +="</tbody></table>"
 

@@ -174,6 +174,46 @@ var/global/list/all_supply_groups = list("Operations","Security","Hospitality","
 	access = access_brig
 	group = "Security"
 
+/datum/supply_pack/ballistic/smg
+	name = ".38 SMG crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/l13,
+					/obj/item/weapon/gun/projectile/automatic/l13,
+					/obj/item/weapon/gun/projectile/automatic/l13)
+	additional_costs = 2300
+	crate_type = /obj/structure/closet/crate/secure/weapon
+	crate_name = ".38 SMG crate"
+	access = access_brig
+	group = "Security"
+
+/datum/supply_pack/ballistic/smg_magazine
+	name = ".38 magazine"
+	contains = list(/obj/item/ammo_box/magazine/l13/lethal,
+					/obj/item/ammo_box/magazine/l13/lethal,
+					/obj/item/ammo_box/magazine/l13/lethal,
+					/obj/item/ammo_box/magazine/l13/lethal,
+					/obj/item/ammo_box/magazine/l13/lethal,
+					/obj/item/ammo_box/magazine/l13/lethal)
+	additional_costs = 500
+	crate_type = /obj/structure/closet/crate/secure
+	crate_name = ".38 magazine"
+	access = access_armory
+	group = "Security"
+
+/datum/supply_pack/ballistic/smg_magazine_rubber
+	name = ".38 magazine (rubber)"
+	contains = list(/obj/item/ammo_box/magazine/l13,
+					/obj/item/ammo_box/magazine/l13,
+					/obj/item/ammo_box/magazine/l13,
+					/obj/item/ammo_box/magazine/l13,
+					/obj/item/ammo_box/magazine/l13,
+					/obj/item/ammo_box/magazine/l13)
+	additional_costs = 400
+	crate_type = /obj/structure/closet/crate/secure
+	crate_name = ".38 magazine (rubber)"
+	access = access_brig
+	group = "Security"
+
+
 /datum/supply_pack/ballistic/pistol
 	name = "9mm pistol crate"
 	contains = list(/obj/item/weapon/gun/projectile/automatic/pistol/glock,
@@ -367,6 +407,16 @@ var/global/list/all_supply_groups = list("Operations","Security","Hospitality","
 	additional_costs = 260
 	crate_type = /obj/structure/closet/crate/secure
 	crate_name = "40x46mm rubber grenades"
+	access = access_armory
+	group = "Security"
+
+/datum/supply_pack/ballistic/exp4046
+	name = "40x46mm explosive grenades"
+	contains = list(/obj/item/weapon/storage/box/r4046/explosion,
+					/obj/item/weapon/storage/box/r4046/explosion)
+	additional_costs = 520
+	crate_type = /obj/structure/closet/crate/secure
+	crate_name = "40x46mm explosive grenades"
 	access = access_armory
 	group = "Security"
 

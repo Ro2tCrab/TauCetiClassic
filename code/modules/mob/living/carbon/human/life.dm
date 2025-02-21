@@ -19,7 +19,7 @@
 	if(prev_gender != gender)
 		prev_gender = gender
 		if(gender in list(PLURAL, NEUTER))
-			message_admins("[src] ([ckey]) gender has been changed to plural or neuter. Please record what has happened recently to the person and then notify coders. (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>)  (<A HREF='?_src_=vars;Vars=\ref[src]'>VV</A>) (<A HREF='?priv_msg=\ref[src]'>PM</A>) (<A HREF='?_src_=holder;adminplayerobservejump=\ref[src]'>JMP</A>)")
+			message_admins("[src] ([ckey]) gender has been changed to plural or neuter. Please record what has happened recently to the person and then notify coders. (<A href='byond://?_src_=holder;adminmoreinfo=\ref[src]'>?</A>)  (<A href='byond://?_src_=vars;Vars=\ref[src]'>VV</A>) (<A href='byond://?priv_msg=\ref[src]'>PM</A>) (<A href='byond://?_src_=holder;adminplayerobservejump=\ref[src]'>JMP</A>)")
 	*/
 	//Apparently, the person who wrote this code designed it so that
 	//blinded get reset each cycle and then get activated later in the
@@ -114,6 +114,9 @@
 				var/pressure_loss = S.damage * 0.1
 				pressure_adjustment_coefficient = pressure_loss
 
+	if(HAS_TRAIT(src, TRAIT_AIRBAG_PROTECTION))
+		pressure_adjustment_coefficient = 0
+
 	pressure_adjustment_coefficient = CLAMP01(pressure_adjustment_coefficient) //So it isn't less than 0 or larger than 1.
 	pressure_adjustment_coefficient *= 1 - species.get_pressure_protection(src)
 
@@ -134,10 +137,10 @@ var/global/list/tourette_bad_words= list(
  				 "УРОД","БЛЯ","ХЕР","ШЛЮХА","ДАВАЛКА","ПИЗДЕЦ","УЕБИЩЕ",
 				 "ПИЗДА","ЕЛДА","ШМАРА","СУЧКА","ПУТАНА","ААА","ГНИДА",
 				 "ГОНДОН","ЕЛДА","КРЕТИН","НАХУЙ","ХУЙ","ЕБАТЬ","ЕБЛО"),
-	TAJARAN = list("ИДИОТ","ДЕБИЛ","ДУРАК","ТУПИЦА","ПЕТУХ","УБЬЮ","СКОТИНА",
- 				   "СКОТ","БЛЯ","ХЕР","ДУРА","ЖМОТ","ГОМОСЕКСУАЛ","ТЕРПИЛА",
-	 			   "МОШОНКА","ЯЙЦА","ШМАРА","СПЕРМОКРЫЛ","ПУТАНА","ААА","ТВАРЬ",
-	 			   "ГОНДОН","ЕЛДА","КРЕТИН","НАХЕР","ДУРАЧОК","СВЕРЛО"),
+	TAJARAN = list("ГОВНО","ЖОПА","ЕБАЛ","БЛЯДИНА","ХУЕСОС","СУКА","ЗАЛУПА",
+ 				 "УРОД","БЛЯ","ХЕР","ШЛЮХА","ДАВАЛКА","ПИЗДЕЦ","УЕБИЩЕ",
+				 "ПИЗДА","ЕЛДА","ШМАРА","СУЧКА","ПУТАНА","ААА","ГНИДА",
+				 "ГОНДОН","ЕЛДА","КРЕТИН","НАХУЙ","ХУЙ","ЕБАТЬ","ЕБЛО"),
 	UNATHI = list("ГОВНО","ЖОПА","ЕБАЛ","БЛЯДИНА","ХУЕСОС","СУКА","ЗАЛУПА",
 				  "УРОД","БЛЯ","ХЕР","ШЛЮХА","ДАВАЛКА","ПИЗДЕЦ","УЕБИЩЕ",
 				  "ПИЗДА","ЕЛДА","ШМАРА","СУЧКА","ПУТАНА","ААА","ГНИДА",
