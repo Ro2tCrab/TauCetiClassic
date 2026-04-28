@@ -22,7 +22,7 @@
 	random_basetype = /obj/structure/sign/poster/official
 
 /obj/item/weapon/poster/revolution
-	name = "revolution poster"
+	name = "contraband poster"
 	icon_state = "rolled_poster"
 	random_basetype = /obj/structure/sign/poster/revolution
 
@@ -178,6 +178,21 @@
 	name = "sivtsev table"
 	icon_state = "sivtsev"
 	desc = "Таблица Сивцева для проверки остроты зрения."
+
+/obj/structure/sign/poster/onlineshop
+	name = "onlineshop poster"
+	icon_state = "onlineshop"
+	desc = "Продать ты сможешь даже гвоздь, ты здесь хозяин, а не гость."
+
+/obj/structure/sign/poster/onlineshop/atom_init()
+	. = ..()
+
+	name = CARGOSHOPNAME
+
+/obj/structure/sign/poster/keepclean
+	name = "keep displosals clean poster"
+	icon_state = "keepclean"
+	desc = "Следи за чистотой входа в пневмопочту, помни, это не мусорка!"
 
 /obj/structure/sign/poster/olympic_games
 	name = "2214 Winter Olympics"
@@ -653,12 +668,12 @@
 		if("Join Revolution")
 			ask_about_revolution(user)
 
-/obj/structure/sign/poster/revolution/proc/ask_about_revolution(mob/user)
+/obj/structure/sign/poster/revolution/proc/ask_about_revolution(mob/living/user)
 	var/datum/faction/revolution/rev = find_faction_by_type(/datum/faction/revolution)
 	if(!rev)
 		to_chat(user, "<span class='bold warning'>The revolutionary minded society has collapsed.</span>")
 		return
-	if(user.ismindprotect())
+	if(ismindprotect(user))
 		to_chat(user, "<span class='bold warning'>You shake your head in disapproval. Who in their right mind would even believe such blatant lies?</span>")
 		return
 	else if(jobban_isbanned(user, ROLE_REV) || jobban_isbanned(user, "Syndicate"))

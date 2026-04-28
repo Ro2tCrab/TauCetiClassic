@@ -101,8 +101,8 @@
 	damage = 25
 
 /obj/item/projectile/bullet/revbullet //.357
-	damage = 60
-	armor_multiplier = 1.5
+	damage = 35
+	armor_multiplier = 0.6
 
 /obj/item/projectile/bullet/rifle1
 	damage = 40
@@ -250,7 +250,7 @@
 	stun = 0
 	weaken = 0
 	stutter = 10
-	agony = 80
+	agony = 20
 	embed = 0
 	sharp = 0
 	dispersion = 2.0

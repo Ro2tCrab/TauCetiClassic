@@ -17,6 +17,12 @@
 
 	var/sensor_mode = FALSE //Determines the current HUD.
 
+	// can't get damage except for burn and brute
+	mob_oxy_mod = new /datum/modval(base_value = 0)
+	mob_tox_mod = new /datum/modval(base_value = 0)
+	mob_clone_mod = new /datum/modval(base_value = 0)
+	mob_brain_mod = new /datum/modval(base_value = 0)
+
 /mob/living/silicon/atom_init()
 	. = ..()
 	silicon_list += src
@@ -141,25 +147,6 @@
 	for (var/datum/language/L in speech_synthesizer_langs)
 		if (L.name == rem_language)
 			speech_synthesizer_langs -= L
-
-/mob/living/silicon/check_languages()
-	set name = "Check Known Languages"
-	set category = "IC"
-	set src = usr
-
-	var/dat = ""
-
-	for(var/datum/language/L as anything in languages)
-		dat += "<b>[L.name] "
-		for(var/l_key in L.key)
-			dat += "(:[l_key])"
-		dat += " </b><br/>Speech Synthesizer: <i>[(L in speech_synthesizer_langs)? "YES":"NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
-
-	var/datum/browser/popup = new(src, "checklanguage", "Known Languages")
-	popup.set_content(dat)
-	popup.open()
-
-	return
 
 /mob/living/silicon/proc/remove_sensors()
 	for(var/hud in sensor_huds)

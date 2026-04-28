@@ -14,6 +14,8 @@
 	var/list/required_jobs = list()
 	// Specie flags that for any amount of reasons can cause this role to not be available. TODO: use traits? ~Luduk
 	var/list/restricted_species_flags = list()
+	// Yep, moving to traits
+	var/list/restricted_species_traits = list()
 	// The required preference for this role
 	var/required_pref = ""
 	// If this role is recruited to at roundstart, the person recruited is not assigned a position on station (Wizard, Nuke Op, Vox Raider)
@@ -46,14 +48,14 @@
 	var/moveset_type
 
 // Initializes the role. Adds the mind to the parent role, adds the mind to the faction, and informs the gamemode the mind is in a role.
-/datum/role/New(datum/mind/M, datum/faction/fac, override = FALSE)
+/datum/role/New(datum/mind/M, datum/faction/fac, override = FALSE, laterole = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	AssignToFaction(fac)
-
-	if(M && !AssignToRole(M, override))
+	if(M && !AssignToRole(M, override, laterole = laterole))
 		Drop()
 		return
+
+	AssignToFaction(fac)
 
 	objectives.owner = M
 	..()
@@ -176,6 +178,11 @@
 		for(var/specie_flag in restricted_species_flags)
 			if(S.flags[specie_flag])
 				log_mode("[ckey_of_antag] his species \"[S.name]\" has restricted flag")
+				return FALSE
+
+		for(var/specie_trait in restricted_species_traits)
+			if(S.race_traits[specie_trait])
+				log_mode("[ckey_of_antag] his species \"[S.name]\" has restricted trait")
 				return FALSE
 
 	if(is_type_in_list(src, M.antag_roles)) //No double double agent agent
@@ -481,7 +488,7 @@
 // Adds the specified antag hud to the player. Usually called in an antag datum file
 /datum/role/proc/add_antag_hud(custom_name)
 	if(antag_hud_type && (antag_hud_name || custom_name))
-		var/name = antag_hud_name ? antag_hud_name :custom_name
+		var/name = antag_hud_name ? antag_hud_name : custom_name
 		var/datum/atom_hud/antag/hud = global.huds[antag_hud_type]
 		hud.join_hud(antag.current)
 		set_antag_hud(antag.current, name, antag_hud_type)

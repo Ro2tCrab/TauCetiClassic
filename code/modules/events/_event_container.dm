@@ -8,11 +8,13 @@
 #define ASSIGNMENT_MEDICAL   "Medical"
 #define ASSIGNMENT_SCIENTIST "Scientist"
 #define ASSIGNMENT_SECURITY  "Security"
+#define ASSIGNMENT_CARGO     "Cargo"
 
 #define ONESHOT  1
 #define DISABLED 0
 
-var/global/list/severity_to_string = list(EVENT_LEVEL_FEATURE = "RoundStart", EVENT_LEVEL_MUNDANE = "Mundane", EVENT_LEVEL_MODERATE = "Moderate", EVENT_LEVEL_MAJOR = "Major")
+// Order is important. EVENT_LEVEL_FEATURE, EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR
+var/global/list/severity_to_string = list("RoundStart", "Mundane", "Moderate", "Major")
 
 /datum/event_container
 	var/severity = -1
@@ -192,6 +194,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_FEATURE = "RoundStart", EV
 	new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",            /datum/event/wallrot,                                 0,    list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_BOTANIST = 50)),
 	new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Xenohive",           /datum/event/feature/area/maintenance_spawn/xenohive, 300),
 	new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Malfunction", /datum/event/camera_damage,                           200,  list(ASSIGNMENT_ENGINEER = 60)),
+	new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Cargo Mail",         /datum/event/cargo_mail,                                0,  list(ASSIGNMENT_CARGO = 30, ASSIGNMENT_ANY = 4)),
 	)
 
 /datum/event_container/moderate
@@ -219,6 +222,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_FEATURE = "RoundStart", EV
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Grid Check",              /datum/event/grid_check,                0,     list(ASSIGNMENT_ENGINEER = 25), ONESHOT),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Organ Failure",           /datum/event/organ_failure,             0,     list(ASSIGNMENT_MEDICAL = 150), ONESHOT),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",            /datum/event/anomaly/anomaly_pyro,      75,    list(ASSIGNMENT_ENGINEER = 60)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gas Anomaly",             /datum/event/anomaly/anomaly_gas,      75,    list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vortex Anomaly",          /datum/event/anomaly/anomaly_vortex,    75,    list(ASSIGNMENT_ENGINEER = 25)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",       /datum/event/anomaly/anomaly_bluespace, 75,    list(ASSIGNMENT_ENGINEER = 25)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",            /datum/event/anomaly/anomaly_flux,      75,    list(ASSIGNMENT_ENGINEER = 50)),
@@ -235,6 +239,8 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_FEATURE = "RoundStart", EV
 
 /datum/event_container/moderate/New()
 	. = ..()
+	if(SSholiday.holidays[EASTER])
+		available_events += new /datum/event_meta(EVENT_LEVEL_MODERATE, "Easter Egg Hunt", /datum/event/egg_hunt, 250, list(), ONESHOT, 1, 30)
 	if(SSholiday.holidays[APRIL_FOOLS])
 		for(var/datum/event_meta/EM in available_events)
 			if(EM.name == "Brand Intelligence")

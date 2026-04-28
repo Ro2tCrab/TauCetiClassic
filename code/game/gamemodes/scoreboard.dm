@@ -45,7 +45,7 @@
 				SSStatistics.score.richestname = E.real_name
 				SSStatistics.score.richestjob = E.job
 				SSStatistics.score.richestkey = E.key
-			dmgscore = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
+			dmgscore = E.getBruteLoss() + E.getFireLoss() + E.getToxLoss() + E.getOxyLoss()
 			if (dmgscore > SSStatistics.score.dmgestdamage)
 				SSStatistics.score.dmgestdamage = dmgscore
 				SSStatistics.score.dmgestname = E.real_name
@@ -125,6 +125,8 @@
 	SSStatistics.score.crewscore -= plaguepoints
 
 	completions += scorestats()
+
+	global.endgame_scoreboard = completions
 
 	if(one_mob)
 		one_mob.scorestats(completions)
@@ -219,10 +221,23 @@
 	// Show the score - might add "ranks" later
 	to_chat(src, "<b>Итоговый результат персонала таков:</b>")
 	to_chat(src, "<b><font size='4'>[SSStatistics.score.crewscore]</font></b>")
+	to_chat(src, "<span class='notice'>Нажмите <a href='byond://winset?command=show_roundend_scoreboard'>здесь</a>, чтобы открыть итоги раунда.</span>")
 
 	for(var/i in 1 to end_icons.len)
 		src << browse_rsc(end_icons[i],"logo_[i].png")
 
 	var/datum/browser/popup = new(src, "roundstats", "Round #[global.round_id] Stats", 1000, 600)
 	popup.set_content(completions)
+	popup.open()
+
+/client/verb/show_roundend_scoreboard()
+	set name = "show_roundend_scoreboard"
+	set hidden = TRUE
+
+	if(!global.endgame_scoreboard)
+		to_chat(src, "<span class='warning'>Итоги раунда ещё не доступны.</span>")
+		return
+
+	var/datum/browser/popup = new(mob, "roundstats", "Round #[global.round_id] Stats", 1000, 600)
+	popup.set_content(global.endgame_scoreboard)
 	popup.open()
