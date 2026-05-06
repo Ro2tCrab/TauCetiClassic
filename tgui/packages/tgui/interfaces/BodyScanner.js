@@ -97,19 +97,32 @@ const BodyScannerMain = (props) => {
 
 const BodyScannerMainOccupant = (props, context) => {
   const { act, data } = useBackend(context);
-  const { occupant } = data;
+  const { occupant, isPopout, canPopout } = data;
   return (
     <Section
       title="Пациент"
       buttons={
-        <Fragment>
-          <Button icon="print" onClick={() => act('print_p')}>
-            Распечатать отчет
-          </Button>
-          <Button icon="user-slash" onClick={() => act('ejectify')}>
-            Извлечь
-          </Button>
-        </Fragment>
+        !isPopout && (
+          <>
+            <Button
+              disabled={!canPopout}
+              icon="window-restore"
+              tooltip={
+                canPopout
+                  ? 'Открывает копию в медицинском дисплее дополненной реальности'
+                  : 'Требуются очки с поддержкой медицинского дисплея дополненной реальности'
+              }
+              onClick={() => act('popout_scan')}>
+              Открыть копию отчёта
+            </Button>
+            <Button icon="print" onClick={() => act('print_p')}>
+              Распечатать отчет
+            </Button>
+            <Button icon="user-slash" onClick={() => act('ejectify')}>
+              Извлечь
+            </Button>
+          </>
+        )
       }>
       <LabeledList>
         <LabeledList.Item label="Имя">{occupant.name}</LabeledList.Item>
@@ -341,7 +354,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                 )}
                 {reduceOrganStatus([
                   !!o.status.splinted && <Box color="good">Наложена шина</Box>,
-                  !!o.status.robotic && <Box color="label">Протез</Box>,
+                  !!o.robotic && <Box color="label">Протез</Box>,
                 ])}
               </Box>
             </Table.Cell>
@@ -404,9 +417,6 @@ const BodyScannerMainOrgansInternal = (props) => {
                 </Box>
                 {reduceOrganStatus([
                   !!o.robotic && <Box color="label">Протез</Box>,
-                  !!o.assisted && (
-                    <Box color="label">Вспомогательный имплант</Box>
-                  ),
                   !!o.dead && (
                     <Box color="bad" bold>
                       Отказ

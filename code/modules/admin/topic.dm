@@ -403,8 +403,8 @@
 //Regular jobs
 	//Command (Blue)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='byond://?src=\ref[src];jobban3=commanddept;jobban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in command_positions)
+		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(SSjob.departments_occupations[DEP_COMMAND])]'><a href='byond://?src=\ref[src];jobban3=commanddept;jobban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_COMMAND])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -421,11 +421,33 @@
 				counter = 0
 		jobs += "</tr></table>"
 
+	//Special Department Nanotrasen station (Grey-blue)
+		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		jobs += "<tr align='center' bgcolor='6c7391'><th colspan='[length(SSjob.departments_occupations[DEP_SPECIAL])]'><a href='byond://?src=\ref[src];jobban3=specialdept;jobban4=\ref[M]'>Special Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_SPECIAL])
+			if(!jobPos)	continue
+			var/datum/job/job = SSjob.GetJob(jobPos)
+			if(!job) continue
+
+			if(jobban_isbanned(M, job.title))
+				jobs += "<td width='20%'><a class='red' href='byond://?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				counter++
+			else
+				jobs += "<td width='20%'><a href='byond://?src=\ref[src];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				jobs += "</tr><tr>"
+				counter = 0
+		jobs += "</tr></table>"
+
+
+
 	//Security (Red)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='byond://?src=\ref[src];jobban3=securitydept;jobban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in security_positions)
+		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(SSjob.departments_occupations[DEP_SECURITY])]'><a href='byond://?src=\ref[src];jobban3=securitydept;jobban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_SECURITY])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -445,8 +467,8 @@
 	//Engineering (Yellow)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='byond://?src=\ref[src];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in engineering_positions)
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(SSjob.departments_occupations[DEP_ENGINEERING])]'><a href='byond://?src=\ref[src];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_ENGINEERING])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -466,8 +488,8 @@
 	//Medical (White)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='byond://?src=\ref[src];jobban3=medicaldept;jobban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in medical_positions)
+		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(SSjob.departments_occupations[DEP_MEDICAL])]'><a href='byond://?src=\ref[src];jobban3=medicaldept;jobban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_MEDICAL])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -487,8 +509,8 @@
 	//Science (Purple)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='byond://?src=\ref[src];jobban3=sciencedept;jobban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in science_positions)
+		jobs += "<tr bgcolor='e79fff'><th colspan='[length(SSjob.departments_occupations[DEP_SCIENCE])]'><a href='byond://?src=\ref[src];jobban3=sciencedept;jobban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_SCIENCE])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -508,8 +530,8 @@
 	//Civilian (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(civilian_positions)]'><a href='byond://?src=\ref[src];jobban3=civiliandept;jobban4=\ref[M]'>Civilian Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in civilian_positions)
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(SSjob.departments_occupations[DEP_CIVILIAN])]'><a href='byond://?src=\ref[src];jobban3=civiliandept;jobban4=\ref[M]'>Civilian Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_CIVILIAN])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -530,8 +552,8 @@
 	//Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions) + 4]'><a href='byond://?src=\ref[src];jobban3=nonhumandept;jobban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in nonhuman_positions)
+		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(SSjob.departments_occupations[DEP_SILICON]) + 4]'><a href='byond://?src=\ref[src];jobban3=nonhumandept;jobban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in SSjob.departments_occupations[DEP_SILICON])
 			if(!jobPos)	continue
 			var/datum/job/job = SSjob.GetJob(jobPos)
 			if(!job) continue
@@ -751,38 +773,44 @@
 		var/list/joblist = list()
 		switch(href_list["jobban3"])
 			if("commanddept")
-				for(var/jobPos in command_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_COMMAND])
 					if(!jobPos)
 						continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
+			if("specialdept")
+				for(var/jobPos in SSjob.departments_occupations[DEP_SPECIAL])
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjob.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
 			if("securitydept")
-				for(var/jobPos in security_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_SECURITY])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("engineeringdept")
-				for(var/jobPos in engineering_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_ENGINEERING])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in medical_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_MEDICAL])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("sciencedept")
-				for(var/jobPos in science_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_SCIENCE])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
 					joblist += temp.title
 			if("civiliandept")
-				for(var/jobPos in civilian_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_CIVILIAN])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
@@ -795,7 +823,7 @@
 					joblist += temp.title */
 			if("nonhumandept")
 				joblist += ROLE_DRONE
-				for(var/jobPos in nonhuman_positions)
+				for(var/jobPos in SSjob.departments_occupations[DEP_SILICON])
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjob.GetJob(jobPos)
 					if(!temp) continue
@@ -1519,7 +1547,6 @@
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
 		show_player_panel(H)
-		//H.regenerate_icons()
 
 	else if(href_list["adminplayeropts"])
 		if(!check_rights(R_ADMIN))
@@ -1683,7 +1710,7 @@
 			M.adjustBruteLoss( min( 99 , (M.health - 1) )    )
 			M.Stun(20)
 			M.Weaken(20)
-			M.setStuttering(20)
+			M.Stuttering(20)
 
 	else if(href_list["CentcommReply"])
 		var/mob/living/H = locate(href_list["CentcommReply"])
@@ -1693,9 +1720,12 @@
 		if(!H.CanObtainCentcommMessage())
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
+		message_admins("[key_name_admin(usr)] has started replying to Emergency message.")
 
 		var/input = sanitize(input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from Centcomm", ""))
-		if(!input)	return
+		if(!input)
+			message_admins("[key_name_admin(usr)] has cancelled their reply to Emergency message.")
+			return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 		log_admin("[src.owner] replied to [key_name(H)]'s Centcomm message with the message [input].")
@@ -1707,7 +1737,7 @@
 			attachment_color = BRIDGE_COLOR_ADMINCOM,
 		)
 
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. <b>\"[input]\"</b>  Message ends.\"")
+		to_chat(H, "Вы слышите треск в гарнитуре, после чего раздаётся голос: \"На связи <b><font color='blue'>Центральное Командование</font></b>. Прослушайте внимательно следующую информацию: <b>\"[input]\"</b> Конец связи.\"")
 
 	else if(href_list["SyndicateReply"])
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
@@ -1717,9 +1747,12 @@
 		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
+		message_admins("[key_name_admin(usr)] has started replying to Syndicate Emergency message.")
 
 		var/input = sanitize(input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from The Syndicate", ""))
-		if(!input)	return
+		if(!input)
+			message_admins("[key_name_admin(usr)] has cancelled their reply to Syndicate Emergency message.")
+			return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 		log_admin("[src.owner] replied to [key_name(H)]'s Syndicate message with the message [input].")
@@ -1730,7 +1763,7 @@
 			attachment_msg = input,
 			attachment_color = BRIDGE_COLOR_ADMINCOM,
 		)
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your benefactor.  Message as follows, agent. <b>\"[input]\"</b>  Message ends.\"")
+		to_chat(H, "Вы слышите треск в гарнитуре, после чего раздаётся голос: \"Ожидайте сообщение от <b><font color='red'><i>Синдиката</i></font></b>. Слушайте внимательно, агент: <b>\"[input]\"</b> Конец связи.\"")
 
 	else if(href_list["CentcommFaxViewInfo"])
 		var/info = locate(href_list["CentcommFaxViewInfo"])
@@ -1741,11 +1774,13 @@
 		popup.open()
 
 	else if(href_list["CentcommFaxReply"])
+		message_admins("[key_name_admin(usr)] has started replying to fax.")
 		var/mob/living/carbon/human/H = locate(href_list["CentcommFaxReply"])
 		var/department = locate(href_list["CentcommFaxReplyDestination"])
 
 		var/input = sanitize(input(src.owner, "Please, enter a message to reply to [key_name(H)] via secure connection.", "Outgoing message from Centcomm", "") as message|null, extra = FALSE)
 		if(!input)
+			message_admins("[key_name_admin(usr)] has cancelled their reply to fax.")
 			return
 
 		var/customname = sanitize_safe(input(src.owner, "Pick a title for the report", "Title") as text|null)
@@ -2352,13 +2387,10 @@
 			return
 		var/ratio_rate = text2num(replacetext(replacetext(input_rate, "+", ""), "%", ""))
 		var/new_ratio = 1 + (ratio_rate/100)
-		var/list/excluded_rank = list("AI", "Cyborg", "Clown Police", "Internal Affairs Agent")
-		for(var/datum/job/J in SSjob.occupations)
-			if(J.title in excluded_rank)
-				continue
+		for(var/datum/job/J as anything in SSjob.active_occupations)
 			J.salary_ratio = new_ratio
 
-		var/list/crew = my_subordinate_staff("Admin")
+		var/list/crew = SSeconomy.my_subordinate_staff("Admin")
 		for(var/person in crew)
 			var/datum/money_account/account = get_account(person["account"])
 			if(!account)
