@@ -377,3 +377,14 @@
 	animal.rejuvenate()
 
 	return TRUE
+
+// New generation
+
+/datum/religion_rites/standing/rejuve
+	name = "Восстановление"
+	desc = "Немедленно исцеляет живое существо до нормального состояния, может потребовать все силы алтаря"
+	ritual_length = (1 SECONDS)
+	invoke_msg = "Услышь меня!!!"
+	favor_cost = 100
+
+

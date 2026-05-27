@@ -142,6 +142,10 @@
 			aspects_to_add[aspect_type] += 1
 
 	R.add_aspects(aspects_to_add)
+	if(!L.my_religion == istype(/datum/religion/cult))
+		R.add_aspects(ASPECT_HOLY)
+	else
+		R.add_aspects(ASPECT_NARSIE)
 
 /********************/
 /*        CULT      */

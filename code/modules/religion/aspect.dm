@@ -351,3 +351,17 @@
 
 /datum/aspect/greed/sacrifice(obj/item/I, mob/living/L, obj/AOG)
 	return I.get_price() * 0.05
+
+/datum/aspect/holy
+	name = ASPECT_HOLY
+	desc = "Core of every religion"
+	icon_state = "aspect_greed"
+
+	color = COLOR_BOTTLE_GREEN
+
+/datum/aspect/narsie
+	name = ASPECT_NARSIE
+	desc = "Core aspect of every Nar-sie follower"
+	icon_state = "aspect_greed"
+
+	color = COLOR_BOTTLE_GREEN

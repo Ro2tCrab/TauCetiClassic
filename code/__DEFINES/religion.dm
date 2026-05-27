@@ -39,6 +39,8 @@
 #define ASPECT_OBSCURE        "Obscurum"
 #define ASPECT_LIGHT          "Lux"
 #define ASPECT_GREED          "Lucrum"
+#define ASPECT_HOLY			  "Sanctus"
+#define ASPECT_NARSIE		  "Terminus"
 
 // Items below this gain are considered "pity" by the deity.
 #define MIN_FAVOUR_GAIN 20
