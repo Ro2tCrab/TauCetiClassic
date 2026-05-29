@@ -497,6 +497,21 @@ var/global/const/INGEST = 2
 
 	return FALSE
 
+/datum/reagents/proc/has_reagent_type(reagent_type, amount = 0)
+	var/list/found_reagents
+
+	for(var/datum/reagent/R in reagent_list)
+		if(istype(R, reagent_type))
+			if(!amount)
+				found_reagents += R.id
+			else if(R.volume >= amount)
+				found_reagents += R.id
+
+	if(found_reagents)
+		return found_reagents
+	else
+		return FALSE
+
 /datum/reagents/proc/get_reagent_amount(reagent)
 	for(var/datum/reagent/R in reagent_list)
 		if (R.id == reagent)
